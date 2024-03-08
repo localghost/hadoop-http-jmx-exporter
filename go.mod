@@ -1,10 +1,11 @@
-module hadoop-jmx-to-prom
+module github.com/kostrzewa9ld/hadoop-http-jmx-exporter
 
-go 1.22.0
+go 1.22
 
 require (
 	github.com/jcmturner/gokrb5 v8.4.4+incompatible
 	github.com/prometheus/client_golang v1.19.0
+	gopkg.in/jcmturner/gokrb5.v7 v7.5.0
 )
 
 require (
@@ -22,6 +23,5 @@ require (
 	gopkg.in/jcmturner/aescts.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/dnsutils.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/goidentity.v3 v3.0.0 // indirect
-	gopkg.in/jcmturner/gokrb5.v7 v7.5.0 // indirect
 	gopkg.in/jcmturner/rpc.v1 v1.1.0 // indirect
 )
