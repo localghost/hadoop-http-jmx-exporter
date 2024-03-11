@@ -34,6 +34,7 @@ func NewMetricsCollector(client *spnego.Client, urls []url.URL) (*MetricsCollect
 			NewJvmMetricsSubcollector(),
 			NewDatanodeSubcollector(),
 			NewClusterMetricsSubcollector(),
+            NewNodeManagerMetricsSubcollector(),
 		},
 		urls: urls,
 	}, nil
