@@ -37,7 +37,12 @@ func (c *ClusterMetricsSubcollector) Collect(bean map[string]interface{}, ch cha
 	hostname := bean["tag.Hostname"].(string)
 	for key, value := range bean {
 		if metric, ok := c.metrics[key]; ok {
-			metric, err := prometheus.NewConstMetric(metric, prometheus.GaugeValue, value.(float64), hostname)
+            value, ok := value.(float64)
+            if !ok {
+                log.Printf("Failed to convert value for key %s to float64: %v", key, value)
+                continue
+            }
+			metric, err := prometheus.NewConstMetric(metric, prometheus.GaugeValue, value, hostname)
 			if err != nil {
 				log.Printf("Failed to create metric %s: %e", metric, err)
 			}

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -43,7 +44,16 @@ func main() {
 	}
 
 	ktbClient := client.NewClientWithKeytab(os.Getenv("KERBEROS_PRINCIPAL"), os.Getenv("KERBEROS_REALM"), keytab, config)
-	httpClient := http.Client{Timeout: 60 * time.Second}
+    timeout := 60 * time.Second
+    timeoutEnv := os.Getenv("HTTP_CLIENT_TIMEOUT_SECONDS")
+    if timeoutEnv != "" {
+        i, err := strconv.Atoi(timeoutEnv)
+        if err != nil {
+            log.Fatalf("Failed to parse HTTP_CLIENT_TIMEOUT_SECONDS: %e", err)
+        }
+        timeout = time.Duration(i) * time.Second
+    }
+	httpClient := http.Client{Timeout: timeout}
 
 	collector, err := collectors.NewMetricsCollector(spnego.NewClient(ktbClient, &httpClient, ""), urls)
 	if err != nil {

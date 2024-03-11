@@ -3,6 +3,7 @@ package collectors
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/url"
 	"sync"
 
@@ -55,16 +56,44 @@ func (c *MetricsCollector) Collect(ch chan<- prometheus.Metric) {
 }
 
 func (c *MetricsCollector) collectFromUrl(address url.URL, ch chan<- prometheus.Metric) {
-	resp, _ := c.client.Get(address.String())
-	body, _ := ioutil.ReadAll(resp.Body)
+	resp, err := c.client.Get(address.String())
+    if err != nil {
+        log.Printf("Error getting: %s", address.String(), err)
+        return
+    }
+
 	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        log.Printf("Error reading response body from %s: %s", address.String(), err)
+        return
+    }
 
 	var asJson map[string]interface{}
-	json.Unmarshal(body, &asJson)
-	for _, bean := range asJson["beans"].([]interface{}) {
-		bean := bean.(map[string]interface{})
+    if err := json.Unmarshal(body, &asJson); err != nil {
+        log.Printf("Error unmarshalling JSON: %s", err)
+        return
+    }
+
+    beans, ok := asJson["beans"].([]interface{})
+    if !ok {
+        log.Println("Error castin beans to list of interfaces")
+        return
+    }
+
+	for _, bean := range beans {
+		bean, ok := bean.(map[string]interface{})
+        if !ok {
+            log.Println("Error casting bean to map from string to interface")
+            continue
+        }
+        modelerType, found := bean["modelerType"]
+        if !found {
+            log.Println("Did not find modelerType in bean. Skipping.")
+            continue
+        }
 		for _, collector := range c.collectors {
-			if collector.Handles(bean["modelerType"].(string)) {
+			if collector.Handles(modelerType.(string)) {
 				collector.Collect(bean, ch)
 			}
 		}

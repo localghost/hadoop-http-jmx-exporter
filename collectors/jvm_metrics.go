@@ -67,7 +67,12 @@ func (c *JvmMetricsSubcollector) Collect(bean map[string]interface{}, ch chan<- 
 	hostname := bean["tag.Hostname"].(string)
 	for key, value := range bean {
 		if metric, ok := c.metrics[key]; ok {
-			metric, err := prometheus.NewConstMetric(metric, prometheus.GaugeValue, value.(float64), hostname, processName)
+            value, ok := value.(float64)
+            if !ok {
+                log.Printf("Failed to convert value for key %s to float64: %v", key, value)
+                continue
+            }
+			metric, err := prometheus.NewConstMetric(metric, prometheus.GaugeValue, value, hostname, processName)
 			if err != nil {
 				log.Printf("Failed to create metric %s: %e", metric, err)
 			}
