@@ -13,53 +13,73 @@ type NodeManagerMetricsSubcollector struct {
 func NewNodeManagerMetricsSubcollector() Subcollector {
 	return &NodeManagerMetricsSubcollector{
 		metrics: map[string]*prometheus.Desc{
-			"containersLaunched": prometheus.NewDesc(
+			"ContainersLaunched": prometheus.NewDesc(
 				"containers_launched",
 				"Total number of launched containers",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"containersCompleted": prometheus.NewDesc(
+			"ContainersCompleted": prometheus.NewDesc(
 				"containers_completed",
 				"Total number of successfully completed containers",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"containersFailed": prometheus.NewDesc(
+			"ContainersFailed": prometheus.NewDesc(
 				"containers_failed",
 				"Total number of failed containers",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"containersKilled": prometheus.NewDesc(
+			"ContainersKilled": prometheus.NewDesc(
 				"containers_killed",
 				"Total number of killed containers",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"containersIniting": prometheus.NewDesc(
+			"ContainersIniting": prometheus.NewDesc(
 				"containers_initing",
 				"Current number of initializing containers",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"containersRunning": prometheus.NewDesc(
+			"ContainersRunning": prometheus.NewDesc(
 				"containers_running",
 				"Current number of running containers",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"allocatedContainers": prometheus.NewDesc(
+			"AllocatedContainers": prometheus.NewDesc(
 				"allocated_containers",
 				"Current number of allocated containers",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"allocatedGB": prometheus.NewDesc(
+			"AllocatedGB": prometheus.NewDesc(
 				"allocated_gb",
 				"Current allocated memory in GB",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"availableGB": prometheus.NewDesc(
+			"AvailableGB": prometheus.NewDesc(
 				"available_gb",
 				"Current available memory in GB",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"allocatedVcores": prometheus.NewDesc(
+			"AllocatedVCores": prometheus.NewDesc(
 				"allocated_vcores",
 				"Current used vcores",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"availableVcores": prometheus.NewDesc(
-				"aavailable_vcores",
+			"AvailableVCores": prometheus.NewDesc(
+				"available_vcores",
 				"Current available vcores",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
-			"containerLaunchDuration": prometheus.NewDesc(
+			"ContainerLaunchDuration": prometheus.NewDesc(
 				"container_launch_duration",
 				"Average time duration in milliseconds NM takes to launch a container",
+                []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
+			"NodeUsedMemGB": prometheus.NewDesc(
+				"node_used_mem_gb",
+				"",
+                []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
+			"NodeUsedVMemGB": prometheus.NewDesc(
+                "node_used_vmem_gb",
+				"",
+                []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
+			"NodeCpuUtilization": prometheus.NewDesc(
+                "node_cpu_utilization",
+				"",
+                []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
+			"ContainerUsedMemGB": prometheus.NewDesc(
+                "container_used_mem_gb",
+				"",
+                []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
+			"ContainerUsedVMemGB": prometheus.NewDesc(
+                "container_used_vmem_gb",
+				"",
                 []string{"hostname"}, prometheus.Labels{"type": "NodeManagerMetrics", "service": "NodeManager"}),
 		},
 	}
