@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/jcmturner/gokrb5/spnego"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/kostrzewa9ld/hadoop-http-jmx-exporter/httpclient"
 )
 
 type Subcollector interface {
@@ -17,12 +17,12 @@ type Subcollector interface {
 }
 
 type MetricsCollector struct {
-	client     *spnego.Client
+	client     httpclient.HttpClient
 	collectors []Subcollector
 	urls       []url.URL
 }
 
-func NewMetricsCollector(client *spnego.Client, urls []url.URL) (*MetricsCollector, error) {
+func NewMetricsCollector(client httpclient.HttpClient, urls []url.URL) (*MetricsCollector, error) {
 	for _, u := range urls {
 		q := u.Query()
 		q.Set("qry", "Hadoop:service=*,name=*")

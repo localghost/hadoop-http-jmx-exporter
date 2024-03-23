@@ -12,6 +12,7 @@ import (
 
 	"github.com/jcmturner/gokrb5/spnego"
 	"github.com/kostrzewa9ld/hadoop-http-jmx-exporter/collectors"
+	"github.com/kostrzewa9ld/hadoop-http-jmx-exporter/httpclient"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"gopkg.in/jcmturner/gokrb5.v7/client"
@@ -19,17 +20,37 @@ import (
 	"gopkg.in/jcmturner/gokrb5.v7/keytab"
 )
 
-func main() {
-	keytab, err := keytab.Load(os.Getenv("KERBEROS_KEYTAB_PATH"))
-	if err != nil {
-		log.Fatalf("Failed to load keytab: %e", err)
+func createHttpClient() httpclient.HttpClient {
+	timeout := 60 * time.Second
+	timeoutEnv := os.Getenv("HTTP_CLIENT_TIMEOUT_SECONDS")
+	if timeoutEnv != "" {
+		i, err := strconv.Atoi(timeoutEnv)
+		if err != nil {
+			log.Fatalf("Failed to parse HTTP_CLIENT_TIMEOUT_SECONDS: %e", err)
+		}
+		timeout = time.Duration(i) * time.Second
+	}
+	noSpnegoClient := http.Client{Timeout: timeout}
+
+	if os.Getenv("KERBEROS_PRINCIPAL") != "" {
+		keytab, err := keytab.Load(os.Getenv("KERBEROS_KEYTAB_PATH"))
+		if err != nil {
+			log.Fatalf("Failed to load keytab: %e", err)
+		}
+
+		config, err := config.Load(os.Getenv("KERBEROS_CONFIG_PATH"))
+		if err != nil {
+			log.Fatalf("Failed to load config: %e", err)
+		}
+
+		ktbClient := client.NewClientWithKeytab(os.Getenv("KERBEROS_PRINCIPAL"), os.Getenv("KERBEROS_REALM"), keytab, config)
+		return httpclient.HttpClientWithSpnego{Client: spnego.NewClient(ktbClient, &noSpnegoClient, "")}
 	}
 
-	config, err := config.Load(os.Getenv("KERBEROS_CONFIG_PATH"))
-	if err != nil {
-		log.Fatalf("Failed to load config: %e", err)
-	}
+	return httpclient.HttpClientPure{Client: &noSpnegoClient}
+}
 
+func readJMXUrls() []url.URL {
 	urlsFromEnv := os.Getenv("JMX_URLS")
 	if urlsFromEnv == "" {
 		log.Fatalf("JMX_URLS env variable is not set")
@@ -42,20 +63,11 @@ func main() {
 		}
 		urls = append(urls, *u)
 	}
+	return urls
+}
 
-	ktbClient := client.NewClientWithKeytab(os.Getenv("KERBEROS_PRINCIPAL"), os.Getenv("KERBEROS_REALM"), keytab, config)
-    timeout := 60 * time.Second
-    timeoutEnv := os.Getenv("HTTP_CLIENT_TIMEOUT_SECONDS")
-    if timeoutEnv != "" {
-        i, err := strconv.Atoi(timeoutEnv)
-        if err != nil {
-            log.Fatalf("Failed to parse HTTP_CLIENT_TIMEOUT_SECONDS: %e", err)
-        }
-        timeout = time.Duration(i) * time.Second
-    }
-	httpClient := http.Client{Timeout: timeout}
-
-	collector, err := collectors.NewMetricsCollector(spnego.NewClient(ktbClient, &httpClient, ""), urls)
+func main() {
+	collector, err := collectors.NewMetricsCollector(createHttpClient(), readJMXUrls())
 	if err != nil {
 		log.Fatalf("Failed to create collector: %e", err)
 	}
