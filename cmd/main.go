@@ -85,10 +85,10 @@ func main() {
 	registry := prometheus.NewRegistry()
 	registry.Register(collector)
 
-	log.Printf("Listening on %s:%s", cfg.ListenAddress, cfg.ListenPort)
+	log.Printf("Listening on %s:%d", cfg.ListenAddress, cfg.ListenPort)
 	http.Handle("/health", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	}))
 	http.Handle("/metrics", promhttp.HandlerFor(registry, promhttp.HandlerOpts{}))
-	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", cfg.ListenAddress, cfg.ListenPort), nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%d", cfg.ListenAddress, cfg.ListenPort), nil))
 }
