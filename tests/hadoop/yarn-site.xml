@@ -1,0 +1,29 @@
+<configuration>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///var/lib/hadoop-data/datanode</value>
+        <description>Comma separated list of paths on the local filesystem of a DataNode where it should store its blocks.</description>
+    </property>
+        <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///var/lib/hadoop-data/namenode</value>
+        <description>Path on the local filesystem where the NameNode stores the namespace and transaction logs persistently.</description>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.keytab</name>
+        <value>/var/lib/hadoop/etc/hadoop/keytab</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.principal</name>
+        <value>hadoop/localhost@EXAMPLE.COM</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.keytab</name>
+        <value>/var/lib/hadoop/etc/hadoop/keytab</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.principal</name>
+        <value>hadoop/localhost@EXAMPLE.COM</value>
+    </property>
+</configuration>
+

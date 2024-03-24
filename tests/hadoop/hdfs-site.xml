@@ -1,0 +1,49 @@
+<configuration>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///var/lib/hadoop-data/datanode</value>
+        <description>Comma separated list of paths on the local filesystem of a DataNode where it should store its blocks.</description>
+    </property>
+        <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///var/lib/hadoop-data/namenode</value>
+        <description>Path on the local filesystem where the NameNode stores the namespace and transaction logs persistently.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.keytab.file</name>
+        <value>/var/lib/hadoop/etc/hadoop/keytab</value>
+    </property>
+    <property>
+        <name>dfs.namenode.kerberos.principal</name>
+        <value>hadoop/localhost@EXAMPLE.COM</value>
+    </property>
+    <property>
+        <name>dfs.namenode.kerberos.internal.spnego.principal</name>
+        <value>HTTP/localhost@EXAMPLE.COM</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir.perm</name>
+        <value>700</value>
+    </property>
+    <!-- <property> -->
+    <!--     <name>dfs.datanode.address</name> -->
+    <!--     <value>0.0.0.0:1004</value> -->
+    <!-- </property> -->
+    <!-- <property> -->
+    <!--     <name>dfs.datanode.http.address</name> -->
+    <!--     <value>0.0.0.0:1006</value> -->
+    <!-- </property> -->
+    <property>
+        <name>dfs.datanode.keytab.file</name>
+        <value>/var/lib/hadoop/etc/hadoop/keytab</value>
+    </property>
+    <property>
+        <name>dfs.datanode.kerberos.principal</name>
+        <value>hadoop/localhost@EXAMPLE.COM</value>
+    </property>
+    <property>
+        <name>dfs.web.authentication.kerberos.principal</name>
+        <value>HTTP/localhost@EXAMPLE.COM</value>
+    </property>
+</configuration>
+
