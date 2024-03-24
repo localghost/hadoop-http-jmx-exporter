@@ -48,7 +48,7 @@ func createHttpClient(cfg *Config) httpclient.HttpClient {
 		return httpclient.HttpClientWithSpnego{Client: spnego.NewClient(ktbClient, &noSpnegoClient, "")}
 	}
 
-	return httpclient.HttpClientPure{Client: &noSpnegoClient}
+	return httpclient.HttpClientWithoutSpnego{Client: &noSpnegoClient}
 }
 
 func readJMXUrls(cfg *Config) []url.URL {

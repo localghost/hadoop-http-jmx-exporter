@@ -10,7 +10,7 @@ type HttpClient interface {
     Get(url string) (*http.Response, error)
 }
 
-type HttpClientPure struct {
+type HttpClientWithoutSpnego struct {
     *http.Client
 }
 
