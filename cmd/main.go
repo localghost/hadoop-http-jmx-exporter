@@ -20,7 +20,7 @@ import (
 )
 
 type Config struct {
-	HttpClientTimeoutSeconds time.Duration `yaml:"http_client_timeout_seconds" env:"HTTP_CLIENT_TIMEOUT_SECONDS" env-default:"60s"`
+	HttpClientTimeoutSeconds time.Duration `yaml:"http_client_timeout_seconds" env:"HTTP_CLIENT_TIMEOUT_SECONDS" env-default:"10s"`
 	KerberosPrincipal        string        `yaml:"kerberos_principal" env:"KERBEROS_PRINCIPAL"`
 	KerberosRealm            string        `yaml:"kerberos_realm" env:"KERBEROS_REALM"`
 	KerberosKeytabPath       string        `yaml:"kerberos_keytab_path" env:"KERBEROS_KEYTAB_PATH"`
