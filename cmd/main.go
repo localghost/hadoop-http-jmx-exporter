@@ -10,8 +10,8 @@ import (
 
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/jcmturner/gokrb5/spnego"
-	"github.com/kostrzewa9ld/hadoop-http-jmx-exporter/collectors"
-	"github.com/kostrzewa9ld/hadoop-http-jmx-exporter/httpclient"
+	"github.com/localghost/hadoop-http-jmx-exporter/collectors"
+	"github.com/localghost/hadoop-http-jmx-exporter/httpclient"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"gopkg.in/jcmturner/gokrb5.v7/client"

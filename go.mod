@@ -1,4 +1,4 @@
-module github.com/kostrzewa9ld/hadoop-http-jmx-exporter
+module github.com/localghost/hadoop-http-jmx-exporter
 
 go 1.22
 

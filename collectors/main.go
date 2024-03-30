@@ -8,7 +8,7 @@ import (
 	"sync"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/kostrzewa9ld/hadoop-http-jmx-exporter/httpclient"
+	"github.com/localghost/hadoop-http-jmx-exporter/httpclient"
 )
 
 type Subcollector interface {
