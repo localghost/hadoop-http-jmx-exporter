@@ -45,7 +45,7 @@ listen_port: 9100 # default
 ```
 
 > [!NOTE]
-> If _SPNEGO_ is not used do not set configuration options starting with `kerberos`/`KERBEROS` prefix. The
+> If _SPNEGO_ should not be used do not set configuration options starting with `kerberos`/`KERBEROS` prefix. The
 > bare minimum is to provide `jmx_urls`/`JMX_URLS`.
 
 > [!WARNING]
