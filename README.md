@@ -20,26 +20,26 @@ flowchart LR
 
 Configuration can be provided ether via environment variable:
 ```bash
-HTTP_CLIENT_TIMEOUT=10s # default
+JMX_URLS="http://10.0.0.1:8088/jmx,http://10.0.0.1:8042/jmx"
 KERBEROS_PRINCIPAL=HTTP/localhost
 KERBEROS_REALM=SOME_REALM
 KERBEROS_KEYTAB_PATH=/path/to/keytab/with/HTTP/principal
 KERBEROS_CONFIG_PATH=/etc/krb5.conf
-JMX_URLS="http://10.0.0.1:8088/jmx,http://10.0.0.1:8042/jmx"
+HTTP_CLIENT_TIMEOUT=10s # default
 LISTEN_ADDRESS=0.0.0.0 # default
 LISTEN_PORT=9100 # default
 ```
 
 or a config YAML file:
 ```yaml
-http_client_timeout: 10s # default
+jmx_urls:
+    - http://10.0.0.1:8088/jmx
+    - http://10.0.0.1:8042/jmx
 kerberos_principal: HTTP/localhost
 kerberos_realm:  SOME_REALM
 kerberos_keytab_path: /path/to/keytab/with/HTTP/principal
 kerberos_config_path: /etc/krb5.conf
-jmx_urls:
-    - http://10.0.0.1:8088/jmx
-    - http://10.0.0.1:8042/jmx
+http_client_timeout: 10s # default
 listen_address: 0.0.0.0 # default 
 listen_port: 9100 # default 
 ```
