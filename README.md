@@ -30,7 +30,7 @@ LISTEN_ADDRESS=0.0.0.0 # default
 LISTEN_PORT=9100 # default
 ```
 
-or a config YAML file:
+or a config YAML file passed as the only argument to the CLI:
 ```yaml
 jmx_urls:
     - http://10.0.0.1:8088/jmx
