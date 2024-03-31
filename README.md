@@ -48,8 +48,46 @@ listen_port: 9100 # default
 > If _SPNEGO_ should not be used do not set configuration options starting with `kerberos`/`KERBEROS` prefix. The
 > bare minimum is to provide `jmx_urls`/`JMX_URLS`.
 
-> [!WARNING]
-> Not all metrices are exposed yet.
+## Exposed Metrics
+
+Following [metrics](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/Metrics.html) are currently exposed:
+- JvmMetrics
+    - MemNonHeapUsedM
+    - MemNonHeapCommittedM
+    - MemNonHeapMaxM
+    - MemHeapUsedM
+    - MemHeapCommittedM
+    - MemHeapMaxM
+    - MemMaxM
+    - GcCount
+    - GcTimeMillis
+    - GcTotalExtraSleepTime
+- datanode
+    - BytesWritten
+    - BytesRead
+    - HeartbeatsAvgTime
+- ClusterMetrics
+    - NumLostNMs
+    - NumUnhealthyNMs
+    - NumRebootedNMs
+- NodeManagerMetrics
+    - ContainersLaunched
+    - ContainersCompleted
+    - ContainersFailed
+    - ContainersKilled
+    - ContainersIniting
+    - ContainersRunning
+    - AllocatedContainers
+    - AllocatedGB
+    - AvailableGB
+    - AllocatedVCores
+    - AvailableVCores
+    - ContainerLaunchDuration
+    - NodeUsedMemGB
+    - NodeUsedVMemGB
+    - NodeCpuUtilization
+    - ContainerUsedMemGB
+    - ContainerUsedVMemGB
 
 ## Releases
 
