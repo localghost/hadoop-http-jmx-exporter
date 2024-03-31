@@ -20,7 +20,7 @@ flowchart LR
 
 Configuration can be provided ether via environment variable:
 ```bash
-HTTP_CLIENT_TIMEOUT_SECONDS=10s # default
+HTTP_CLIENT_TIMEOUT=10s # default
 KERBEROS_PRINCIPAL=HTTP/localhost
 KERBEROS_REALM=SOME_REALM
 KERBEROS_KEYTAB_PATH=/path/to/keytab/with/HTTP/principal
