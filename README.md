@@ -50,8 +50,7 @@ listen_port: 9100 # default
 
 ## Exposed Metrics
 
-<details>
-<summary>Following [metrics](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/Metrics.html) are currently exposed:</summary>
+Following [metrics](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/Metrics.html) are currently exposed:
 - JvmMetrics
     - MemNonHeapUsedM
     - MemNonHeapCommittedM
@@ -89,7 +88,6 @@ listen_port: 9100 # default
     - NodeCpuUtilization
     - ContainerUsedMemGB
     - ContainerUsedVMemGB
-</details>
 
 ## Releases
 
